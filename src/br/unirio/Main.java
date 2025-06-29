@@ -21,7 +21,9 @@ public class Main
 			ord.realizaLeitura(in.nextLine());
 		}
 		
-		ord.imprime();
+		ord.executa();
+		
+		
 		
 		
 		

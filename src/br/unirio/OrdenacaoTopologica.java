@@ -23,7 +23,7 @@ public class OrdenacaoTopologica
 			listaSuc = null;
 		}
 		
-		public Elo(int chave) { // Inicializa o Elo com a chave sendo x e o contador == 1
+		public Elo(int chave) { // Inicializa o Elo com a chave sendo x e o contador == 0
 			prox = null;
 			this.chave = chave;
 			contador = 0;
@@ -153,22 +153,32 @@ public class OrdenacaoTopologica
 		return insereFinal(ult.prox, x);
 	}
 	
-	public void imprime() { // imprime a lista  - Complexidade O(n^2) ("METODO DEBUG PUBLICO")
-		imprime(prim);
+	
+	
+	
+	
+	
+	
+
+	/* M�todo para impress�o do estado atual da estrutura de dados. */
+	private void debug()
+	{
+		System.out.println("Debug");
+		debug(prim);
 	}
 	
-	private void imprime(Elo p) {
+	private void debug(Elo p) {
 		if(p == null) {
 			return;
 		}
 		
 		System.out.print(p+" predecessores: "+p.contador+", sucessores: ");
-		imprime(p.listaSuc);
+		imprimeEloSuc(p.listaSuc);
 
-		imprime(p.prox);
+		debug(p.prox);
 	}
 	
-	private void imprime(EloSuc p) {
+	private void imprimeEloSuc(EloSuc p) {
 		if(p == null) {
 			System.out.println("NULL");
 			return;
@@ -176,21 +186,30 @@ public class OrdenacaoTopologica
 		
 		System.out.print(p.id+"->");
 		
-		imprime(p.prox);
+		imprimeEloSuc(p.prox);
 	}
 	
-	
-	/* M�todo para impress�o do estado atual da estrutura de dados. */
-	private void debug()
-	{
-		/* Preencher. */
+	private void buscaEloSemPred() { // Complexidade O(n) busca elementos sem predecessores
+		Elo p = prim; // Armazena a lista antiga
+		prim = null; // Utiliza a lista corrente para armazenar a lista ordenada topologicamente
+		
+		while(p!=null) {
+			Elo q = p;
+			p = q.prox;
+			if(q.contador==0) {
+				// Insere q na nova Cadeia
+				q.prox = prim;
+				prim = q;
+			}
+		}
 	}
+	
 	
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
-		/* Preencher. */
-		
+		debug();
+		buscaEloSemPred();
 		return false;
 	}
 }
