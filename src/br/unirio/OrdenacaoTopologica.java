@@ -23,12 +23,23 @@ public class OrdenacaoTopologica
 			listaSuc = null;
 		}
 		
+		public Elo(int chave) { // Inicializa o Elo com a chave sendo x e o contador == 1
+			prox = null;
+			this.chave = chave;
+			contador = 0;
+			listaSuc = null;
+		}
+		
 		public Elo(int chave, int contador, Elo prox, EloSuc listaSuc)
 		{
 			this.chave = chave;
 			this.contador = contador;
 			this.prox = prox;
 			this.listaSuc = listaSuc;
+		}
+		
+		public String toString() {
+			return ""+chave;
 		}
 	}
 	
@@ -55,6 +66,10 @@ public class OrdenacaoTopologica
 		{
 			this.id = id;
 			this.prox = prox;
+		}
+		
+		public String toString() {
+			return ""+id.chave;
 		}
 	}
 
@@ -84,78 +99,30 @@ public class OrdenacaoTopologica
 		Elo eloy = buscarElo(prim,y);
 		
 		// Se x não existir
-		if(elox == null) {
-			if(prim == null){ // Primeira inserção
-				prim = new Elo();
-				prim.chave = x;
-				prim.contador++;
-				elox = prim;
-			}
-			else { // Demais inserções
-				Elo ult;
-				
-				for (ult = prim;ult.prox!=null;ult = ult.prox); // Encontra o ultimo elo antes de NULL
-				elox = new Elo();
-				elox.chave = x;
-				elox.contador++;
-				ult.prox = elox;
-			}
-		}
+		if(elox == null)
+			elox = insereFinal(prim,x);
 		
 		// Se y não nao existir
-		if(eloy == null ) { // Primeira inserção
-			if(prim == null) {
-				prim = new Elo();
-				prim.chave = y;
-				prim.contador++;
-				eloy = prim;
-			}
-			
-			else { // Demais inserções
-				Elo ult;
-				
-				for (ult = prim;ult.prox!=null;ult = ult.prox); // Encontra o ultimo elo antes de NULL
-				eloy = new Elo();
-				eloy.chave = y;
-				eloy.contador++;
-				ult.prox = eloy;
-			
-		}
+		if(eloy == null )
+			eloy = insereFinal(prim,y);
 		
-		}
-				
-				
-				
-				
-				
+		atualizarDados(elox,eloy);
 	}
 	
-	private void atualizarDados(Elo x, Elo y) {
-		
+	private void atualizarDados(Elo x, Elo y) { // Atualiza os dados de x e y  / Complexidade - O(1)
+		// Atualizando dados de X
 		if(x.listaSuc == null) { // Primeira inserção
-			x.listaSuc = new EloSuc();
-			x.listaSuc.id = y;
+			x.listaSuc = new EloSuc(y);
 		}
 		else { // Demais inserções
-			EloSuc novo = new EloSuc(y);
-			novo.prox = x.listaSuc;
-			x.listaSuc.id = novo.id;
-			
-	
-			
+			EloSuc aux = x.listaSuc; // Primeiro sucessor da lista
+			x.listaSuc = new EloSuc(y); // Insere o novo elemento no inicio
+			x.listaSuc.prox = aux; // Faz o novo elemento apontar para o antigo primeiro da lista
 		}
-	
 		y.contador++; // Atualização de dados do y
-		
-		
-		
-		
-		
-		
-		
 	}
 	
-	private Elo buscarElo(Elo p,int x){
+	private Elo buscarElo(Elo p,int x){ // Busca e retorna um elo / Complexidade - O(n)
 		
 		if(p == null) 
 			return null;
@@ -167,6 +134,50 @@ public class OrdenacaoTopologica
 		
 	}
 	
+	
+	private Elo insereFinal(Elo ult,int x) { // Insere no final e incrementa o contador n da classe ordemTopologica (Complexidade O(N))
+		
+		if(ult == null) { // Primeira inserção
+			prim = new Elo(x); // Inicializa o Elo com a chave sendo x
+			n++;
+			return prim;
+		}
+		
+		if(ult.prox == null) {
+			Elo p = new Elo(x);
+			ult.prox = p;
+			n++;
+			return p;
+		}
+	
+		return insereFinal(ult.prox, x);
+	}
+	
+	public void imprime() { // imprime a lista  - Complexidade O(n^2) ("METODO DEBUG PUBLICO")
+		imprime(prim);
+	}
+	
+	private void imprime(Elo p) {
+		if(p == null) {
+			return;
+		}
+		
+		System.out.print(p+" predecessores: "+p.contador+", sucessores: ");
+		imprime(p.listaSuc);
+
+		imprime(p.prox);
+	}
+	
+	private void imprime(EloSuc p) {
+		if(p == null) {
+			System.out.println("NULL");
+			return;
+		}
+		
+		System.out.print(p.id+"->");
+		
+		imprime(p.prox);
+	}
 	
 	
 	/* M�todo para impress�o do estado atual da estrutura de dados. */
