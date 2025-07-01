@@ -153,8 +153,8 @@ public class OrdenacaoTopologica
 		return insereFinal(ult.prox, x);
 	}
 	
-	
-	
+
+
 	
 	
 	
@@ -204,12 +204,69 @@ public class OrdenacaoTopologica
 		}
 	}
 	
+	private void gerarSaida() { // INCOMPLETO
+		Elo q, p;
+		EloSuc t;
+		for(q = prim;q!=null;q = q.prox) { //para cada elemento q da lista de elementos com zero predecessores
+			System.out.print(q.chave); // imprimir a chave de q
+			n--; // decrementar o número de elementos da lista (n)
+			for(t = q.listaSuc;t!=null; t = t.prox) { //para cada elemento t da lista de sucessores de q
+				t.id.contador--;
+				if(t.id.contador==0) {// se o contador de t se tornar zero
+					for(p = prim;p.prox!=null;p = p.prox);
+					p.prox = t.id; // insere este elemento no fim da lista de elementos com zero p
+					t.id = null;//remover o elemento t da lista de sucessores de q 
+					q.listaSuc = q.listaSuc.prox;
+				}
+				
+			}
+		}
+		
+		
+	}
 	
+	
+	private void removeElo(Elo p) {
+		if(p==null) 
+			return;
+		
+		removeElo(prim,p);
+	}
+	
+	private void removeElo(Elo p, Elo q) {
+		if(p == null)
+			return;
+		if(q==prim) 
+			prim = null;
+		
+		if(p.prox == q) 
+			p.prox = q.prox;
+		
+		
+		removeElo(p.prox,q);
+	}
+	
+	public void imprimirElo() {
+		if(prim == null)
+			return;
+		
+		imprimirElo(prim);
+	}
+	
+	public void imprimirElo(Elo p) {
+		if(p == null) {
+			System.out.println("NULL");
+			return;
+		}
+		System.out.print(p+"->");
+		imprimirElo(p.prox);
+	}
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
 		debug();
 		buscaEloSemPred();
+		imprimirElo();
 		return false;
 	}
 }
