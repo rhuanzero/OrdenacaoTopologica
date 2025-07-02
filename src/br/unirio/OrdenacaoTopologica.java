@@ -200,10 +200,25 @@ public class OrdenacaoTopologica
 	}
 	
 	//Metódo responsável por gerar saída parcialmente ordenada.
-	private void gerarSaida() { //Complexidade: O(n)
+	private void gerarSaida() { //Complexidade: O(n+m)
 		
 		// Utilizando um elo auxiliar para guardar referência ao começo da lista
 		Elo q = prim;
+		
+		//Utilizando um elo auxiliar para guardar o ultimo da lista
+		Elo ult = null;
+		
+		//Verificando se a lista está vazia
+		if(prim != null) {
+			
+			// Usando a referência do primeiro para chegar no final da lista.
+			ult = prim;
+			
+			// Guardando referência ao último elemento da lista.
+			while(ult.prox != null) { 
+					ult = ult.prox;
+			}
+		}
 		
 		//Imprimindo de acordo com a saída esperada no enunciado.
 		System.out.println("Ordenação Topológica:");
@@ -234,21 +249,19 @@ public class OrdenacaoTopologica
 						
 						//Se a lista estiver vazia, o próximo elemento da lista sucessiva vai ser o primeiro da lista com zero predecessores.
 						prim = t.id;
-						
+						ult = t.id;
 						//Garante que o nó não traga outra lista com ele, causando um encadeamento indesejado.
 						t.id.prox = null;
 					} 
 					
 					// Se a lista não estiver vazia.
 					else {
-						//Usando um elo auxiliar para guardar referência ao primeiro elemento da lista.
-						Elo w = prim;
 						
-						//Buscando último elemento da lista
-						while (w.prox != null) w = w.prox;
+						// O(1) para colocar no fina da lista.
+						ult.prox = t.id;
 						
-						//Colocando elemento no final da lista de zero predecessores.
-						w.prox = t.id;
+						// Atualizando o elo auxiliar para apontar para o último da lista.
+						ult = t.id;
 						
 						//Garante que o nó não traga outra lista com ele, causando um encadeamento indesejado.
 						t.id.prox = null;
@@ -299,14 +312,9 @@ public class OrdenacaoTopologica
 		System.out.print(p+"->");
 		imprimirElo(p.prox);
 	}
-	/* M�todo respons�vel por executar o algoritmo. */
-	public boolean executa()
-	{
-		debug();
-		buscaEloSemPred();
-		gerarSaida();
-		//imprimirElo();
-		if( n == 0) {
+	
+	private boolean isParcialmenteOrdenado() {
+		if( this.n == 0) {
 			
 			System.out.println("\nConjunto é parcialmente ordenado.");
 			return true;
@@ -315,6 +323,15 @@ public class OrdenacaoTopologica
 			System.out.println("\nConjunto nçao é parcialmente ordenado.");
 			return false;
 		}
+	}
+	/* M�todo respons�vel por executar o algoritmo. */
+	public boolean executa()
+	{
+		debug();
+		buscaEloSemPred();
+		gerarSaida();
+		return isParcialmenteOrdenado();
+		
 		
 	}
 }
