@@ -152,13 +152,6 @@ public class OrdenacaoTopologica
 	
 		return insereFinal(ult.prox, x);
 	}
-	
-
-
-	
-	
-	
-	
 
 	/* M�todo para impress�o do estado atual da estrutura de dados. */
 	private void debug()
@@ -193,36 +186,81 @@ public class OrdenacaoTopologica
 		Elo p = prim; // Armazena a lista antiga
 		prim = null; // Utiliza a lista corrente para armazenar a lista ordenada topologicamente
 		
-		while(p!=null) {
+		while(p != null) {
 			Elo q = p;
 			p = q.prox;
-			if(q.contador==0) {
-				// Insere q na nova Cadeia
+			if(q.contador == 0) {
+				// Insere q na nova Cadeia no começo
 				q.prox = prim;
+				
+				//Atualiza o q como primeiro da lista pois coloca o novo elemento no início.
 				prim = q;
 			}
 		}
 	}
 	
-	private void gerarSaida() { // INCOMPLETO
-		Elo q, p;
-		EloSuc t;
-		for(q = prim;q!=null;q = q.prox) { //para cada elemento q da lista de elementos com zero predecessores
-			System.out.print(q.chave); // imprimir a chave de q
-			n--; // decrementar o número de elementos da lista (n)
-			for(t = q.listaSuc;t!=null; t = t.prox) { //para cada elemento t da lista de sucessores de q
+	//Metódo responsável por gerar saída parcialmente ordenada.
+	private void gerarSaida() { //Complexidade: O(n)
+		
+		// Utilizando um elo auxiliar para guardar referência ao começo da lista
+		Elo q = prim;
+		
+		//Imprimindo de acordo com a saída esperada no enunciado.
+		System.out.println("Ordenação Topológica:");
+		
+		//Estrutura repetitiva responsável por percorrer a lista com zero predecessores.
+		while(q != null) {
+			
+			//Imprimindo chave corrente
+			System.out.print(q.chave + " ");
+			
+			//Decrementando o número de elementos na lista.
+			n--;
+			
+			//Referência do começo da lista sendo passada para o próximo da lista, descartando o elemento q corrente.
+			prim = q.prox;
+			
+			//Estrutura repetitiva utilizada para percorrer a lista sucessiva.
+			for(EloSuc t = q.listaSuc; t != null; t = t.prox) {
+				
+				//Decrementando o número de predecessores dos elementos da lista sucessiva.
 				t.id.contador--;
-				if(t.id.contador==0) {// se o contador de t se tornar zero
-					for(p = prim;p.prox!=null;p = p.prox);
-					p.prox = t.id; // insere este elemento no fim da lista de elementos com zero p
-					t.id = null;//remover o elemento t da lista de sucessores de q 
+				
+				//Verificando se o número de predecessores é 0.
+				if(t.id.contador == 0) {
+					
+					//Verificando se a lista está vazia.
+					if (prim == null) {
+						
+						//Se a lista estiver vazia, o próximo elemento da lista sucessiva vai ser o primeiro da lista com zero predecessores.
+						prim = t.id;
+						
+						//Garante que o nó não traga outra lista com ele, causando um encadeamento indesejado.
+						t.id.prox = null;
+					} 
+					
+					// Se a lista não estiver vazia.
+					else {
+						//Usando um elo auxiliar para guardar referência ao primeiro elemento da lista.
+						Elo w = prim;
+						
+						//Buscando último elemento da lista
+						while (w.prox != null) w = w.prox;
+						
+						//Colocando elemento no final da lista de zero predecessores.
+						w.prox = t.id;
+						
+						//Garante que o nó não traga outra lista com ele, causando um encadeamento indesejado.
+						t.id.prox = null;
+						}
+					
+					//Eliminando elemento com 0 predecessores da lista de sucessores
 					q.listaSuc = q.listaSuc.prox;
 				}
-				
 			}
+			// Indo para o próximo elemento da list, descartando o anterior.
+			q = prim;
 		}
-		
-		
 	}
 	
 	
@@ -236,7 +274,7 @@ public class OrdenacaoTopologica
 	private void removeElo(Elo p, Elo q) {
 		if(p == null)
 			return;
-		if(q==prim) 
+		if(q == prim) 
 			prim = null;
 		
 		if(p.prox == q) 
@@ -266,7 +304,17 @@ public class OrdenacaoTopologica
 	{
 		debug();
 		buscaEloSemPred();
-		imprimirElo();
-		return false;
+		gerarSaida();
+		//imprimirElo();
+		if( n == 0) {
+			
+			System.out.println("\nConjunto é parcialmente ordenado.");
+			return true;
+		}
+		else {
+			System.out.println("\nConjunto nçao é parcialmente ordenado.");
+			return false;
+		}
+		
 	}
 }
