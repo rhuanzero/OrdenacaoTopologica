@@ -1,4 +1,8 @@
 package br.unirio;
+import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class OrdenacaoTopologica
 {
@@ -274,6 +278,51 @@ public class OrdenacaoTopologica
 			// Indo para o próximo elemento da list, descartando o anterior.
 			q = prim;
 		}
+	}
+
+	//Gerador de numeros aleatorios
+	Random nAleatorio  = new Random;
+
+	//Metodo para gerar um grafo direcionado aciclico de N vertices
+	private void gerarGrafo(int nVertices){
+		//Checando se o numero de vertices é igual ou menor que zero
+		if(n_vertices <= 0) {
+			return;
+		}
+
+		//Adicionando no arquivo.txt cada linha de adicao no grafo
+		//Utilizando o BufferedWriter pois tera casos com milhares de vertices
+		//O FileWriter true evita que algo sobescreva o arquivo
+		try(BufferedWriter escritor = new BufferedWriter(new FileWriter("arquivo.txt", true))){
+
+			int contador = 0;
+
+			while(contador < nVertices) {
+				// x ira receber um numero aleatorio entre 1 e nVertices
+				int x = nAleatorio.nextInt(nVertices) + 1;
+
+				// y ira receber um numero aleatorio entre 1 e (nVertices - 1)
+				int y = nAleatorio.nextInt(nVertices - 1) + 1 ;
+				//Se y foi maior ou igual a x, ira incrementar y, para que todos os numeros dentro do intervalo tenham
+				// a mesma probabilidade de ser sorteado
+				if(y >= x)
+					y++;
+
+				//Adicao no arquivo
+				escritor.write(x + " < " + y + "\n");
+
+				contador++;
+			}
+
+			} catch (IOException e) {
+			System.err.println("Erro na escrita do arquivo: " + e.getMessage());
+			}
+
+	}
+	
+	//Metodo para conferir se a insercao x < y ira manter o grafo aciclico 
+	private boolean ehAciclico(int x, int y) {
+		
 	}
 	
 	
