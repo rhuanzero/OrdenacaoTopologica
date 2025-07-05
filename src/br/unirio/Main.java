@@ -8,35 +8,13 @@ public class Main
 	public static void main(String args[])
 	{
 		OrdenacaoTopologica ord = new OrdenacaoTopologica();
-		File arquivo = new File("src/br/unirio/entrada.txt");
-		Scanner in = null;
-		
-		try {
-			 in = new Scanner(arquivo);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
-		while(in.hasNextLine()) {
-			ord.realizaLeitura(in.nextLine());
-		}
-		
-		ord.executa();
-		
-		
-		
-		
-		
-		
 	
-		/*
-		
-		
+		String nomeEntrada = "entrada.txt";
 		ord.realizaLeitura(nomeEntrada);
 
 		if(!ord.executa())
-			System.out.println("O conjunto nao � parcialmente ordenado.");
+			System.out.println("O conjunto nao é parcialmente ordenado.");
 		else
-			System.out.println("O conjunto � parcialmente ordenado.");*/
+			System.out.println("O conjunto é parcialmente ordenado.");
 	}
 }

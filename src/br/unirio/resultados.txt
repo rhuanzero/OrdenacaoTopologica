@@ -1,0 +1,2 @@
+Duração: 36ms / N de vértices do grafo: 1
+

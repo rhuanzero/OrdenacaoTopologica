@@ -1,11 +1,16 @@
 package br.unirio;
 import java.util.Random;
+import java.util.Scanner;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class OrdenacaoTopologica
 {
+	long tempoInicial; // Para marcar o tempo de cada teste
+	
 	private class Elo
 	{
 		/* Identifica��o do elemento. */
@@ -47,7 +52,7 @@ public class OrdenacaoTopologica
 		}
 	}
 	
-	private class EloSuc 
+	private class EloSuc
 	{
 		/* Aponta para o elo que � sucessor. */
 		public Elo id; 
@@ -91,10 +96,27 @@ public class OrdenacaoTopologica
 	}
 	
 	/* M�todo respons�vel pela leitura do arquivo de entrada. */
-	public void realizaLeitura(String nomeEntrada)
+	
+	public void realizaLeitura(String nomeEntrada) {
+		tempoInicial = System.currentTimeMillis(); // Guarda o inicio do teste
+		File arquivo = new File("src/br/unirio/"+nomeEntrada);
+		Scanner in = null;
+		
+		try {
+			 in = new Scanner(arquivo);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		while(in.hasNextLine()) {
+			realizaLeituraAux(in.nextLine());
+		}
+	}
+	
+	private void realizaLeituraAux(String parChave)
 	{   
 		// x < y
-		String[] entrada = nomeEntrada.split("<");
+		String[] entrada = parChave.split("<");
 		
 		int x = Integer.valueOf(entrada[0].trim());
 		int y = Integer.valueOf(entrada[1].trim());
@@ -281,12 +303,12 @@ public class OrdenacaoTopologica
 	}
 
 	//Gerador de numeros aleatorios
-	Random nAleatorio  = new Random;
+	Random nAleatorio  = new Random();
 
 	//Metodo para gerar um grafo direcionado aciclico de N vertices
 	private void gerarGrafo(int nVertices){
 		//Checando se o numero de vertices é igual ou menor que zero
-		if(n_vertices <= 0) {
+		if(nVertices <= 0) {
 			return;
 		}
 
@@ -321,30 +343,10 @@ public class OrdenacaoTopologica
 	}
 	
 	//Metodo para conferir se a insercao x < y ira manter o grafo aciclico 
-	private boolean ehAciclico(int x, int y) {
+	/*private boolean ehAciclico(int x, int y) {
 		
-	}
+	}*/
 	
-	
-	private void removeElo(Elo p) {
-		if(p==null) 
-			return;
-		
-		removeElo(prim,p);
-	}
-	
-	private void removeElo(Elo p, Elo q) {
-		if(p == null)
-			return;
-		if(q == prim) 
-			prim = null;
-		
-		if(p.prox == q) 
-			p.prox = q.prox;
-		
-		
-		removeElo(p.prox,q);
-	}
 	
 	public void imprimirElo() {
 		if(prim == null)
@@ -363,22 +365,34 @@ public class OrdenacaoTopologica
 	}
 	
 	private boolean isParcialmenteOrdenado() {
-		if( this.n == 0) {
-			
-			System.out.println("\nConjunto é parcialmente ordenado.");
-			return true;
-		}
-		else {
-			System.out.println("\nConjunto nçao é parcialmente ordenado.");
-			return false;
-		}
+		return this.n ==0;
 	}
+	
+	private void gerarRelatorio() { // Gera relatorio do tempo
+		
+		long duracao = System.currentTimeMillis()-tempoInicial;
+		
+		String linhaLog = "Duração: "+duracao+"ms / N de vértices do grafo: "+1+"\n"; // Calcula a duração do teste realizado
+		
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultados.txt", true))) {
+		    writer.write(linhaLog); // Escreve uma nova Linha no arquivo resultados.txt
+		    writer.newLine(); // Quebra a linha
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		System.out.println(linhaLog); // Imprime a linha atual
+	}
+	
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
+	
 		debug();
 		buscaEloSemPred();
 		gerarSaida();
+		System.out.println();
+		//gerarRelatorio();
+		
 		return isParcialmenteOrdenado();
 		
 		
