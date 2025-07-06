@@ -10,7 +10,7 @@ import java.io.IOException;
 public class OrdenacaoTopologica
 {
 	long tempoInicial; // Para marcar o tempo de cada teste
-	
+	String numVertices;
 	private class Elo
 	{
 		/* Identifica��o do elemento. */
@@ -97,9 +97,10 @@ public class OrdenacaoTopologica
 	
 	/* M�todo respons�vel pela leitura do arquivo de entrada. */
 	
-	public void realizaLeitura(String nomeEntrada) {
+	public void realizaLeitura(String nomeEntrada) { // Complexidade O(n)
 		tempoInicial = System.currentTimeMillis(); // Guarda o inicio do teste
-		File arquivo = new File("src/br/unirio/"+nomeEntrada);
+		numVertices = nomeEntrada;
+		File arquivo = new File("src/entradas/"+nomeEntrada+".txt");
 		Scanner in = null;
 		
 		try {
@@ -112,6 +113,8 @@ public class OrdenacaoTopologica
 			realizaLeituraAux(in.nextLine());
 		}
 	}
+	
+	
 	
 	private void realizaLeituraAux(String parChave)
 	{   
@@ -314,38 +317,44 @@ public class OrdenacaoTopologica
 
 	//Metodo para gerar um grafo direcionado aciclico de N vertices
 	private void gerarGrafo(int nVertices){
-
 		//Checando se o numero de vertices é igual ou menor que zero
-		if(nVertices <= 0) {
+		if(nVertices <= 0) 
 			return;
-		}
+		
 
 		//Definindo o numero de arestas do grafo como nVertices + 2
-		final int N_ARESTAS = nVertices + 2;
+		final int N_ARESTAS = nVertices * 2;
 
 		//Adicionando no arquivo.txt cada linha de adicao no grafo
 		//Utilizando o BufferedWriter pois tera casos com milhares de vertices
 		//O FileWriter true evita que algo sobescreva o arquivo
-		try(BufferedWriter escritor = new BufferedWriter(new FileWriter("arquivo.txt", true))){
+		try(BufferedWriter escritor = new BufferedWriter(new FileWriter("src/entradas/"+nVertices+".txt"))){
 
 			int contadorDeArestasAdicionadas = 0;
 			int tentativasDeAdicionar = 0;
 			//Definimos um valor maximo de tenativos para evitar loops infinitos
-			final int MAX_TENTATIVAS = N_ARESTAS * 10;
+			final int MAX_TENTATIVAS = N_ARESTAS * 100;
 			//Matriz que armazena um x que tem aresta para um y
-			boolean[][] aresta;
+			boolean[][] aresta = new boolean[nVertices+1][nVertices+1];
 
-			while(contadorDeArestasAdicionadas < N_ARESTAS && tentativasDeAdicionar < MAX_TENTATIVAS) {
+			while(contadorDeArestasAdicionadas < N_ARESTAS || tentativasDeAdicionar < MAX_TENTATIVAS) {
 				// x ira receber um numero aleatorio entre 1 e nVertices
 				int x = nAleatorio.nextInt(nVertices) + 1;
 
-				// y ira receber um numero aleatorio entre 1 e (nVertices - 1)
-				int y = nAleatorio.nextInt(nVertices - 1) + 1 ;
+				int y ;
+				// y ira receber um numero aleatorio entre 1 e (nVertices) até ser diferente de x
+				do {
+	                y = nAleatorio.nextInt(nVertices) + 1;
+	            } while (y == x);
+				
+				
 				//Se y foi maior ou igual a x, ira incrementar y, para que todos os numeros dentro do intervalo tenham
 				// a mesma probabilidade de ser sorteado
-				if(y >= x)
-					y++;
-
+				/*if(y == x) {
+					tentativasDeAdicionar++;
+					continue;
+				}*/
+				
 				//Confere se a aresta ja existe, caso ja continua para procurar outra que nao existe
 				if(aresta[x][y]){
 					tentativasDeAdicionar++;
@@ -353,7 +362,7 @@ public class OrdenacaoTopologica
 				}
 
 				//Se a aresta faz permanencer o grafo aciclico, adiciona no arquivo
-				if(ehAciclico(x,y,aresta[x][y], nVertices)) {
+				if(ehAciclico(x,y,aresta, nVertices)) {
 
 					//Adicionando aresta
 					aresta[x][y] = true;
@@ -370,7 +379,7 @@ public class OrdenacaoTopologica
 			} catch (IOException e) {
 			System.err.println("Erro na escrita do arquivo: " + e.getMessage());
 			}
-
+		
 	}
 	
 	//Metodo para conferir se a insercao x < y ira manter o grafo aciclico 
@@ -383,7 +392,7 @@ public class OrdenacaoTopologica
 		aresta[x][y] = true;
 
 		//Checa se coma aresta temporiamente adicionada aagora faz um ciclo ter um grafo
-		boolean temCiclo = contemCiclo(aresta[x][y], x, y, nVertices);
+		boolean temCiclo = contemCiclo(aresta, nVertices);
 
 		//Restaura o estado original da aresta
 		aresta[x][y] = estadoOriginal;
@@ -394,7 +403,7 @@ public class OrdenacaoTopologica
 	}
 
 	//Metodo para verificar se com a aresta adicionada temporaria ira fazer o grafo ser ciclico
-	private boolean contemCiclo(boolean[][] aresta, int x, int y, int nVertices) {
+	private boolean contemCiclo(boolean[][] aresta, int nVertices) {
 		//Vetor para mapear os estado de cada vertice
 		int[] estados = new int[nVertices+1];
 
@@ -402,7 +411,7 @@ public class OrdenacaoTopologica
 		for(int i = 1; i <= nVertices; i++) {
 			// Verificar se o vertice ainda nao foi visitado
 			if(estados[i] == NAO_VISITADO) {
-				if(buscaNoGrafo(aresta[x][y],x,y, nVertices, i, estados)){
+				if(buscaNoGrafo(aresta,nVertices, i, estados)){
 					return true; //Ciclo encontrado
 				}
 			}
@@ -411,27 +420,26 @@ public class OrdenacaoTopologica
 	}
 
 	//Metodo recursivo para buscar caso o vertice ja foi visitado ou nao
-	private boolean buscaNoGrafo(boolean[][] aresta, int x, int y, int nVertices, int u,  int[] estados){
+	private boolean buscaNoGrafo(boolean[][] aresta, int nVertices, int u,  int[] estados){ // Complexidade O(n^2)
 		//Indice atual como visitando, estando na recursao
 		estados[u] = VISITANDO;
 
-		for(int v = 1; v <= nVertices; i++) {
-			if(aresta[x][y]) { //Se existe uma aresta x < y
+		for(int v = 1; v <= nVertices; v++) {
+			if(aresta[u][v]) { //Se existe uma aresta x < y
 				// y ainda nao foi visitado
 				if(estados[v] == NAO_VISITADO) {
-					if(buscaNoGrafo(aresta[x][y], nVertices, v, estados)){
+					if(buscaNoGrafo(aresta, nVertices, v, estados)){
 						return true; // Se um ciclo for encontrado
 					}
 				}
-				else if(estados[v] == VISITADO) {
+				else if(estados[v] == VISITANDO) {
 					return true;// tem ciclo, x < y, forma um ciclo
 				}
 			}
 		}
-		estados[x] = VISITADO;
+		estados[u] = VISITADO;
 		return false; // Nao foi encontrado nenhum ciclo
 	}
-
 
 	public void imprimirElo() {
 		if(prim == null)
@@ -457,7 +465,7 @@ public class OrdenacaoTopologica
 		
 		long duracao = System.currentTimeMillis()-tempoInicial;
 		
-		String linhaLog = "Duração: "+duracao+"ms / N de vértices do grafo: "+1+"\n"; // Calcula a duração do teste realizado
+		String linhaLog = "Duração: "+duracao+"ms / N de vértices do grafo: "+numVertices+"\n"; // Calcula a duração do teste realizado
 		
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultados.txt", true))) {
 		    writer.write(linhaLog); // Escreve uma nova Linha no arquivo resultados.txt
@@ -476,10 +484,30 @@ public class OrdenacaoTopologica
 		buscaEloSemPred();
 		gerarSaida();
 		System.out.println();
-		//gerarRelatorio();
+		gerarRelatorio();
+	
 		
 		return isParcialmenteOrdenado();
 		
 		
+	}
+	
+	public void gerarEntradas() {
+		gerarGrafo(5);
+		gerarGrafo(10);
+		gerarGrafo(20);
+		gerarGrafo(30);
+		gerarGrafo(40);
+		gerarGrafo(50);
+		gerarGrafo(100);
+		gerarGrafo(200);
+		gerarGrafo(500);
+		gerarGrafo(1000);
+		gerarGrafo(5000);
+		gerarGrafo(10000);
+		gerarGrafo(20000);
+		gerarGrafo(30000);
+		gerarGrafo(50000);
+		gerarGrafo(100000);
 	}
 }
