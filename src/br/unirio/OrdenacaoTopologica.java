@@ -307,6 +307,10 @@ public class OrdenacaoTopologica
 
 	//Metodo para gerar um grafo direcionado aciclico de N vertices
 	private void gerarGrafo(int nVertices){
+
+		//Definindo o numero de arestas do grafo como nVertices + 2
+		final int N_ARESTAS = nVertices + 2;
+
 		//Checando se o numero de vertices é igual ou menor que zero
 		if(nVertices <= 0) {
 			return;
@@ -317,9 +321,14 @@ public class OrdenacaoTopologica
 		//O FileWriter true evita que algo sobescreva o arquivo
 		try(BufferedWriter escritor = new BufferedWriter(new FileWriter("arquivo.txt", true))){
 
-			int contador = 0;
+			int contadorDeArestasAdicionadas = 0;
+			int tentativasDeAdicionar = 0;
+			//Definimos um valor maximo de tenativos para evitar loops infinitos
+			final int MAX_TENTATIVAS = N_ARESTAS * 10;
+			//Matriz que armazena um x que tem aresta para um y
+			boolean[][] aresta;
 
-			while(contador < nVertices) {
+			while(contadorDeArestasAdicionadas < N_ARESTAS && tentativasDeAdicionar < MAX_TENTATIVAS) {
 				// x ira receber um numero aleatorio entre 1 e nVertices
 				int x = nAleatorio.nextInt(nVertices) + 1;
 
@@ -330,10 +339,25 @@ public class OrdenacaoTopologica
 				if(y >= x)
 					y++;
 
-				//Adicao no arquivo
-				escritor.write(x + " < " + y + "\n");
+				//Confere se a aresta ja existe, caso ja continua para procurar outra que nao existe
+				if(aresta[x][y]){
+					tentativasDeAdicionar++;
+					continue;
+				}
 
-				contador++;
+				//Se a aresta faz permanencer o grafo aciclico, adiciona no arquivo
+				if(ehAciclico(x,y)) {
+
+					//Adicionando aresta
+					aresta[x][y] = true;
+
+					//Adicao no arquivo
+					escritor.write(x + " < " + y + "\n");
+
+					contadorDeArestasAdicionadas++;
+				}
+
+				tentativasDeAdicionar++;
 			}
 
 			} catch (IOException e) {
@@ -343,11 +367,11 @@ public class OrdenacaoTopologica
 	}
 	
 	//Metodo para conferir se a insercao x < y ira manter o grafo aciclico 
-	/*private boolean ehAciclico(int x, int y) {
+	private boolean ehAciclico(int x, int y) {
 		
-	}*/
-	
-	
+	}
+
+
 	public void imprimirElo() {
 		if(prim == null)
 			return;
