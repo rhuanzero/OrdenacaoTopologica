@@ -1,6 +1,7 @@
 package br.unirio;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -35,10 +36,16 @@ public class Main
                     	break;
                        
                     case "2":
-                    	ord.gerarEntradas();
+                    	System.out.println("Insira o n de vertices: ");
+                    	int i = in.nextInt();
+                    	
+						try {
+							GeradorGrafos.gerarGrafo(i);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}  	
                         System.out.println("Grafos gerados!");
                         break;
-                 
                     case "3":
                     	ok = false;
                 }
@@ -46,6 +53,8 @@ public class Main
                 System.out.println(e.getMessage());
             }
         } while (ok);
+        
+        in.close();
 		
 		
 		
