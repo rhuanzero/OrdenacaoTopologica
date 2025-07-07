@@ -1,0 +1,238 @@
+Duração: 6ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 1ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 1ms / N de vértices do grafo: 5
+
+Duração: 0ms / N de vértices do grafo: 5
+
+Duração: 7ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 1ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 2ms / N de vértices do grafo: 10
+
+Duração: 1ms / N de vértices do grafo: 10
+
+Duração: 0ms / N de vértices do grafo: 10
+
+Duração: 9ms / N de vértices do grafo: 20
+
+Duração: 4ms / N de vértices do grafo: 20
+
+Duração: 4ms / N de vértices do grafo: 20
+
+Duração: 3ms / N de vértices do grafo: 20
+
+Duração: 3ms / N de vértices do grafo: 20
+
+Duração: 2ms / N de vértices do grafo: 20
+
+Duração: 1ms / N de vértices do grafo: 20
+
+Duração: 1ms / N de vértices do grafo: 20
+
+Duração: 1ms / N de vértices do grafo: 20
+
+Duração: 1ms / N de vértices do grafo: 20
+
+Duração: 17ms / N de vértices do grafo: 30
+
+Duração: 9ms / N de vértices do grafo: 30
+
+Duração: 6ms / N de vértices do grafo: 30
+
+Duração: 4ms / N de vértices do grafo: 30
+
+Duração: 3ms / N de vértices do grafo: 30
+
+Duração: 1ms / N de vértices do grafo: 30
+
+Duração: 2ms / N de vértices do grafo: 30
+
+Duração: 1ms / N de vértices do grafo: 30
+
+Duração: 2ms / N de vértices do grafo: 30
+
+Duração: 3ms / N de vértices do grafo: 30
+
+Duração: 19ms / N de vértices do grafo: 40
+
+Duração: 5ms / N de vértices do grafo: 40
+
+Duração: 5ms / N de vértices do grafo: 40
+
+Duração: 4ms / N de vértices do grafo: 40
+
+Duração: 4ms / N de vértices do grafo: 40
+
+Duração: 4ms / N de vértices do grafo: 40
+
+Duração: 5ms / N de vértices do grafo: 40
+
+Duração: 4ms / N de vértices do grafo: 40
+
+Duração: 5ms / N de vértices do grafo: 40
+
+Duração: 6ms / N de vértices do grafo: 40
+
+Duração: 24ms / N de vértices do grafo: 50
+
+Duração: 9ms / N de vértices do grafo: 50
+
+Duração: 7ms / N de vértices do grafo: 50
+
+Duração: 9ms / N de vértices do grafo: 50
+
+Duração: 8ms / N de vértices do grafo: 50
+
+Duração: 7ms / N de vértices do grafo: 50
+
+Duração: 6ms / N de vértices do grafo: 50
+
+Duração: 5ms / N de vértices do grafo: 50
+
+Duração: 6ms / N de vértices do grafo: 50
+
+Duração: 6ms / N de vértices do grafo: 50
+
+Duração: 67ms / N de vértices do grafo: 100
+
+Duração: 28ms / N de vértices do grafo: 100
+
+Duração: 19ms / N de vértices do grafo: 100
+
+Duração: 16ms / N de vértices do grafo: 100
+
+Duração: 16ms / N de vértices do grafo: 100
+
+Duração: 18ms / N de vértices do grafo: 100
+
+Duração: 21ms / N de vértices do grafo: 100
+
+Duração: 18ms / N de vértices do grafo: 100
+
+Duração: 17ms / N de vértices do grafo: 100
+
+Duração: 16ms / N de vértices do grafo: 100
+
+Duração: 111ms / N de vértices do grafo: 200
+
+Duração: 44ms / N de vértices do grafo: 200
+
+Duração: 39ms / N de vértices do grafo: 200
+
+Duração: 33ms / N de vértices do grafo: 200
+
+Duração: 20ms / N de vértices do grafo: 200
+
+Duração: 23ms / N de vértices do grafo: 200
+
+Duração: 29ms / N de vértices do grafo: 200
+
+Duração: 24ms / N de vértices do grafo: 200
+
+Duração: 24ms / N de vértices do grafo: 200
+
+Duração: 21ms / N de vértices do grafo: 200
+
+Duração: 154ms / N de vértices do grafo: 500
+
+Duração: 91ms / N de vértices do grafo: 500
+
+Duração: 80ms / N de vértices do grafo: 500
+
+Duração: 82ms / N de vértices do grafo: 500
+
+Duração: 83ms / N de vértices do grafo: 500
+
+Duração: 73ms / N de vértices do grafo: 500
+
+Duração: 76ms / N de vértices do grafo: 500
+
+Duração: 78ms / N de vértices do grafo: 500
+
+Duração: 80ms / N de vértices do grafo: 500
+
+Duração: 75ms / N de vértices do grafo: 500
+
+Duração: 234ms / N de vértices do grafo: 1000
+
+Duração: 189ms / N de vértices do grafo: 1000
+
+Duração: 177ms / N de vértices do grafo: 1000
+
+Duração: 170ms / N de vértices do grafo: 1000
+
+Duração: 176ms / N de vértices do grafo: 1000
+
+Duração: 178ms / N de vértices do grafo: 1000
+
+Duração: 164ms / N de vértices do grafo: 1000
+
+Duração: 174ms / N de vértices do grafo: 1000
+
+Duração: 166ms / N de vértices do grafo: 1000
+
+Duração: 168ms / N de vértices do grafo: 1000
+
+Duração: 1135ms / N de vértices do grafo: 5000
+
+Duração: 1207ms / N de vértices do grafo: 5000
+
+Duração: 1176ms / N de vértices do grafo: 5000
+
+Duração: 995ms / N de vértices do grafo: 5000
+
+Duração: 989ms / N de vértices do grafo: 5000
+
+Duração: 1111ms / N de vértices do grafo: 5000
+
+Duração: 969ms / N de vértices do grafo: 5000
+
+Duração: 1148ms / N de vértices do grafo: 5000
+
+Duração: 989ms / N de vértices do grafo: 5000
+
+Duração: 1116ms / N de vértices do grafo: 5000
+
+Duração: 6ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 0ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
+Duração: 1ms / N de vértices do grafo: 8
+
