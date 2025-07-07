@@ -10,11 +10,12 @@ import java.util.Scanner;
 
 public class GeradorGrafos {
 
-
+		static long tempoGerar;
 
 	    private static Random random = new Random();
 
 	    public static void gerarGrafo(int nVertices) throws IOException {
+	    	tempoGerar = System.currentTimeMillis();
 	    	int nArestas = nVertices * 2;
 	        try (BufferedWriter escritor = new BufferedWriter(new FileWriter("src/entradas/"+nVertices+".txt"))) {
 	            List<Integer> vertices = new ArrayList<>();
@@ -42,9 +43,25 @@ public class GeradorGrafos {
 	                }
 	                tentativas++;
 	            }
+	        
 	        }
+	        gerarRelatorio(nVertices);
+	        
 	    }
+	    private static void gerarRelatorio(int n) { // Gera relatorio do tempo
 
+			long duracao = System.currentTimeMillis()-tempoGerar;
+		
+			String linhaLog = "Tempo para gerar o grafo de "+n+" vértices: "+duracao+"ms"; // Calcula a duração do teste realizado
+
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultadosGrafo.txt", true))) {
+			    writer.write(linhaLog); // Escreve uma nova Linha no arquivo resultados.txt
+			    writer.newLine(); // Quebra a linha
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			System.out.println(linhaLog); // Imprime a linha atual
+		}
 
 	    public static void main(String[] args) {
 	    	Scanner in = new Scanner(System.in);
@@ -58,7 +75,7 @@ public class GeradorGrafos {
 				e.printStackTrace();
 			}
 	    }
-	    
+	     
 	    /*
 	  //Gerador de numeros aleatorios
 		static Random nAleatorio  = new Random();

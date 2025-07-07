@@ -1,5 +1,4 @@
 package br.unirio;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main
@@ -12,7 +11,7 @@ public class Main
 
 		String entrada = in.nextLine();
 	
-		for(int i = 0;i<9;i++) {
+		for(int i = 0;i<10;i++) {
 			ord = new OrdenacaoTopologica();
 
 			ord.realizaLeitura(entrada);
