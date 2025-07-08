@@ -114,7 +114,8 @@ public class OrdenacaoTopologica
 		while(in.hasNextLine()) {
 			realizaLeituraAux(in.nextLine());
 		}
-		tempoLeitura = System.currentTimeMillis()-tempoLeitura;
+		
+		tempoLeitura = System.currentTimeMillis() - tempoLeitura;
 	}
 
 

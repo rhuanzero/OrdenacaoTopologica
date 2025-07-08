@@ -16,7 +16,27 @@ Duração: 2ms / N de vértices do grafo: 5 / Tempo de leitura:2ms
 
 Duração: 0ms / N de vértices do grafo: 5 / Tempo de leitura:3ms 
 
-Duração: 1ms / N de vértices do grafo: 5 / Tempo de leitura:2ms 
+Duração: 1ms / N de vértices do grafo: 5 / Tempo de leitura:2ms  
+
+Duração: 9ms / N de vértices do grafo: 10 / Tempo de leitura:10ms 
+
+Duração: 9ms / N de vértices do grafo: 10 / Tempo de leitura:8ms 
+
+Duração: 1ms / N de vértices do grafo: 10 / Tempo de leitura:1ms 
+
+Duração: 1ms / N de vértices do grafo: 10 / Tempo de leitura:0ms 
+
+Duração: 0ms / N de vértices do grafo: 10 / Tempo de leitura:2ms 
+
+Duração: 1ms / N de vértices do grafo: 10 / Tempo de leitura:1ms 
+
+Duração: 0ms / N de vértices do grafo: 10 / Tempo de leitura:1ms 
+
+Duração: 1ms / N de vértices do grafo: 10 / Tempo de leitura:1ms 
+
+Duração: 1ms / N de vértices do grafo: 10 / Tempo de leitura:0ms 
+
+Duração: 0ms / N de vértices do grafo: 10 / Tempo de leitura:0ms 
 
 Duração: 12ms / N de vértices do grafo: 20 / Tempo de leitura:13ms 
 
@@ -297,4 +317,7 @@ Duração: 946ms / N de vértices do grafo: 100000 / Tempo de leitura:455982ms
 Duração: 1002ms / N de vértices do grafo: 100000 / Tempo de leitura:451603ms 
 
 Duração: 1022ms / N de vértices do grafo: 100000 / Tempo de leitura:449932ms 
+
+
+
 

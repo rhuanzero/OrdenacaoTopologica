@@ -11,17 +11,15 @@ public class Main
 
 		String entrada = in.nextLine();
 	
-		for(int i = 0;i<10;i++) {
-			ord = new OrdenacaoTopologica();
-
-			ord.realizaLeitura(entrada);
-			if(!ord.executa()) {
-				System.out.println("O conjunto nao é parcialmente ordenado.");
-			} else {
-				System.out.println("O conjunto é parcialmente ordenado.");
-			}}
 		
-
+		ord.realizaLeitura(entrada);
+		
+		if(!ord.executa()) {
+			System.out.println("O conjunto nao é parcialmente ordenado.");
+		} else {
+			System.out.println("O conjunto é parcialmente ordenado.");
+		}
+	
 
 
         in.close();
