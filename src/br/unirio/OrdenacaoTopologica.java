@@ -200,7 +200,7 @@ public class OrdenacaoTopologica
 	private void imprimeEloSuc(EloSuc p) {
 	
 		while (p != null) {
-			System.out.print(p.id + "->");
+			System.out.print(p.id + " -> ");
 			p = p.prox;
 		}
 		System.out.println("NULL"); 
@@ -311,7 +311,7 @@ public class OrdenacaoTopologica
 
 		Elo p = prim;
 		while (p != null) {
-			System.out.print(p + "->");
+			System.out.print(p + " -> ");
 			p = p.prox;
 		}
 		System.out.println("NULL");

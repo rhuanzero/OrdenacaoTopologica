@@ -8,8 +8,6 @@ public class Main
 {
 	public static void main(String args[])
 	{
-		OrdenacaoTopologica ord = new OrdenacaoTopologica();
-
 		Scanner in = new Scanner(System.in);
 
 		System.out.print("Insira o número de vértices: ");
@@ -18,7 +16,7 @@ public class Main
 		
 		long t0 = System.currentTimeMillis();
 		for(int i = 0; i < 10; i++) {
-			
+			OrdenacaoTopologica ord = new OrdenacaoTopologica();	
 			try {
 				GeradorGrafos.gerarGrafo(Integer.valueOf(entrada));
 			} catch (NumberFormatException | IOException e) {
