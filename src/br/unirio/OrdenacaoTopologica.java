@@ -1,16 +1,11 @@
 package br.unirio;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 
 public class OrdenacaoTopologica
 {
-	long tempoExecução, tempoLeitura; // Para marcar o tempo de cada teste
-	String numVertices;
 	private class Elo
 	{
 		/* Identifica��o do elemento. */
@@ -100,8 +95,6 @@ public class OrdenacaoTopologica
 	/* M�todo respons�vel pela leitura do arquivo de entrada. */
 
 	public void realizaLeitura(String nomeEntrada) { // Complexidade O(n)
-		tempoLeitura = System.currentTimeMillis();
-		numVertices = nomeEntrada;
 		File arquivo = new File("src/entradas/"+nomeEntrada+".txt");
 		Scanner in = null;
 
@@ -114,8 +107,6 @@ public class OrdenacaoTopologica
 		while(in.hasNextLine()) {
 			realizaLeituraAux(in.nextLine());
 		}
-		
-		tempoLeitura = System.currentTimeMillis() - tempoLeitura;
 	}
 
 
@@ -330,31 +321,13 @@ public class OrdenacaoTopologica
 		return this.n ==0;
 	}
 
-	private void gerarRelatorio() { // Gera relatorio do tempo
-
-		long duracao = System.currentTimeMillis()-tempoExecução;
-	
-		String linhaLog = "Duração: "+duracao+"ms / N de vértices do grafo: "+numVertices+" / Tempo de leitura:"+tempoLeitura+"ms \n"; // Calcula a duração do teste realizado
-
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultados.txt", true))) {
-		    writer.write(linhaLog); // Escreve uma nova Linha no arquivo resultados.txt
-		    writer.newLine(); // Quebra a linha
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
-		System.out.println(linhaLog); // Imprime a linha atual
-	}
-
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
-		tempoExecução = System.currentTimeMillis(); // Guarda o inicio do teste
 		debug();
 		buscaEloSemPred();
 		gerarSaida();
 		System.out.println();
-		gerarRelatorio();
-
 
 		return isParcialmenteOrdenado();
 

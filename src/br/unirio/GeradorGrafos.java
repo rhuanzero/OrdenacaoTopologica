@@ -1,80 +1,37 @@
 package br.unirio;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class GeradorGrafos {
 
-		static long tempoGerar;
+    public static void gerarGrafo(int nVertices) throws IOException {
 
-	    private static Random random = new Random();
+        // Máximo de arestas possíveis em um DAG (sem ciclos)
+        int maxArestas = (nVertices * (nVertices - 1)) / 2;
+        int nArestas = maxArestas; 
 
-	    public static void gerarGrafo(int nVertices) throws IOException {
-	    	tempoGerar = System.currentTimeMillis();
-	    	int nArestas = nVertices * 2;
-	        try (BufferedWriter escritor = new BufferedWriter(new FileWriter("src/entradas/"+nVertices+".txt"))) {
-	            List<Integer> vertices = new ArrayList<>();
-	            for (int i = 1; i <= nVertices; i++) {
-	                vertices.add(i);
-	            }
-	            Collections.shuffle(vertices);
+        try (
+        		BufferedWriter escritor = new BufferedWriter(new FileWriter("src/entradas/" + nVertices + ".txt"))) {
 
-	            int[] posicao = new int[nVertices + 1];
-	            for (int i = 0; i < nVertices; i++) {
-	                posicao[vertices.get(i)] = i;
-	            }
+            // Gera todas as arestas possíveis (x < y)
+            List<String> arestasPossiveis = new ArrayList<>();
+            for (int x = 1; x <= nVertices; x++) {
+                for (int y = x + 1; y <= nVertices; y++) {
+                    arestasPossiveis.add(x + " < " + y);
+                }
+            }
 
-	            int arestasGeradas = 0;
-	            int tentativas = 0;
-	            int maxTentativas = nArestas * 100;
-
-	            while (arestasGeradas < nArestas && tentativas < maxTentativas) {
-	                int u = random.nextInt(nVertices) + 1;
-	                int v = random.nextInt(nVertices) + 1;
-
-	                if (u != v && posicao[u] < posicao[v]) {
-	                    escritor.write(u + " < " + v + "\n");
-	                    arestasGeradas++;
-	                }
-	                tentativas++;
-	            }
-	        
-	        }
-	        gerarRelatorio(nVertices);
-	        
-	    }
-	    private static void gerarRelatorio(int n) { // Gera relatorio do tempo
-
-			long duracao = System.currentTimeMillis()-tempoGerar;
-		
-			String linhaLog = "Tempo para gerar o grafo de "+n+" vértices: "+duracao+"ms"; // Calcula a duração do teste realizado
-
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultadosGrafo.txt", true))) {
-			    writer.write(linhaLog); // Escreve uma nova Linha no arquivo resultados.txt
-			    writer.newLine(); // Quebra a linha
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
-			System.out.println(linhaLog); // Imprime a linha atual
-		}
-
-	    public static void main(String[] args) {
-	    	Scanner in = new Scanner(System.in);
-	    	
-	    	
-	    	int i = in.nextInt();
-	    	
-	    	try {
-				GeradorGrafos.gerarGrafo(i);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	    }
+            // Embaralha e seleciona as primeiras nArestas
+            Collections.shuffle(arestasPossiveis);
+            for (int i = 0; i < nArestas && i < arestasPossiveis.size(); i++) {
+                escritor.write(arestasPossiveis.get(i) + "\n");
+            }
+        }
+    }
+}
 	     
 	    /*
 	  //Gerador de numeros aleatorios
@@ -212,7 +169,6 @@ public class GeradorGrafos {
 			estados[u] = VISITADO;
 			return false; // Nao foi encontrado nenhum ciclo
 		}    */
-	}
 
 
 
