@@ -1,0 +1,11 @@
+Grafo de 10 vértices gerado em 9 ms
+Grafo de 20 vértices gerado em 12 ms
+Grafo de 30 vértices gerado em 13 ms
+Grafo de 40 vértices gerado em 17 ms
+Grafo de 50 vértices gerado em 24 ms
+Grafo de 100 vértices gerado em 53 ms
+Grafo de 200 vértices gerado em 132 ms
+Grafo de 500 vértices gerado em 659 ms
+Grafo de 1000 vértices gerado em 4216 ms
+Grafo de 5000 vértices gerado em 195609 ms
+Grafo de 10000 vértices gerado em 1284132 ms
