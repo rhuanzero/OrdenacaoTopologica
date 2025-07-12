@@ -6,38 +6,32 @@ import java.util.Scanner;
 
 public class Main
 {
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
+
 	{
 		Scanner in = new Scanner(System.in);
-
-		System.out.print("Insira o número de vértices: ");
-		String[] entradas = {"20000","30000","50000"}; 
-		//String entrada = in.nextLine();
-		for(int j = 0;j<3;j++) {
-			String entrada = entradas[j];
+		//System.out.print("Insira o número de vértices: ");
+		String[] entradas = {"10", "20", "30", "40", "50", "100", "200", "500", "1000", "5000", "10000", "20000","21000"}; 
+		OrdenacaoTopologica ord = new OrdenacaoTopologica();
+		//GeradorGrafos.gerarGrafo(30000);
+		for(int i = 0; i<entradas.length;i++) {
+			String entrada = entradas[i];
+			System.out.println(entrada);
+			
 			long t0 = System.currentTimeMillis();
-			for(int i = 0; i < 10; i++) {
-				OrdenacaoTopologica ord = new OrdenacaoTopologica();	
-				try {
-					GeradorGrafos.gerarGrafo(Integer.valueOf(entrada));
-				} catch (NumberFormatException | IOException e) {
-					e.printStackTrace();
-				}
-				
+			for(int j = 0; j < 10; j++) {
 				ord.realizaLeitura(entrada);
-				
 				if(!ord.executa()) {
 					System.out.println("O conjunto nao é parcialmente ordenado.");
 				} else {
 					System.out.println("O conjunto é parcialmente ordenado.");
 				}
 			}
-			
 			long t1 = System.currentTimeMillis();
 			
-			long total = (t1 - t0)/10 ;
+			long total = (t1-t0)/10;
 	
-	        String linhaLog = "Grafo de " + entrada + " vértices gerado em " + total + " ms";
+	        String linhaLog = "Grafo de " + entrada + " vértices executado em " + total + " ms";
 	
 	        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/br/unirio/resultados.txt", true))) {
 	            writer.write(linhaLog);
@@ -47,12 +41,8 @@ public class Main
 	        }
 	
 	        System.out.println(linhaLog);
-			
-	        in.close();
+		
+		
 		}
-		
-		
-		
-		
 	}
 }

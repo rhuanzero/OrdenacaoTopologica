@@ -324,7 +324,7 @@ public class OrdenacaoTopologica
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
-		debug();
+		//debug();
 		buscaEloSemPred();
 		gerarSaida();
 		System.out.println();
