@@ -10,11 +10,11 @@ public class Main
 
 	{
 		Scanner in = new Scanner(System.in);
-		//System.out.print("Insira o número de vértices: ");
-		//String[] entradas = {"10", "20", "30", "40", "50", "100", "200", "500", "1000", "5000", "10000", "20000","21000"}; 
+		
 		OrdenacaoTopologica ord = new OrdenacaoTopologica();
-		String entrada = in.nextLine();
-			System.out.println(entrada);
+		GeradorGrafos.gerarGrafo(10);
+		
+		String entrada = Integer.toString(10);
 			
 			long t0 = System.currentTimeMillis();
 			for(int j = 0; j < 10; j++) {

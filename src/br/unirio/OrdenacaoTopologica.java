@@ -301,22 +301,6 @@ public class OrdenacaoTopologica
 		}
 	}
 
-
-
-	public void imprimirElo() {
-		if(prim == null) {
-			System.out.println("Lista vazia ou nula.");
-			return;
-		}
-
-		Elo p = prim;
-		while (p != null) {
-			System.out.print(p + " -> ");
-			p = p.prox;
-		}
-		System.out.println("NULL");
-	}
-
 	private boolean isParcialmenteOrdenado() {
 		return this.n ==0;
 	}
@@ -324,7 +308,7 @@ public class OrdenacaoTopologica
 	/* M�todo respons�vel por executar o algoritmo. */
 	public boolean executa()
 	{
-		//debug();
+		debug();
 		buscaEloSemPred();
 		gerarSaida();
 		System.out.println();
