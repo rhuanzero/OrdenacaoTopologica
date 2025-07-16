@@ -12,9 +12,12 @@ public class Main
 		Scanner in = new Scanner(System.in);
 		
 		OrdenacaoTopologica ord = new OrdenacaoTopologica();
-		GeradorGrafos.gerarGrafo(10);
 		
-		String entrada = Integer.toString(10);
+		int grafo = in.nextInt();
+		
+		GeradorGrafos.gerarGrafo(grafo);
+		
+		String entrada = Integer.toString(grafo);
 			
 			long t0 = System.currentTimeMillis();
 			for(int j = 0; j < 10; j++) {

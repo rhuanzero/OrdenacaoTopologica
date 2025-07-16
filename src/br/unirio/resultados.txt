@@ -11,3 +11,4 @@ Grafo de 5000 vértices executado em 190357 ms
 Grafo de 10000 vértices executado em 1439578 ms
 Grafo de 20000 vértices executado em 10953433 ms
 
+Grafo de 10 vértices executado em 5 ms
